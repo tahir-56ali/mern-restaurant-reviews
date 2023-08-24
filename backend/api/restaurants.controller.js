@@ -49,4 +49,14 @@ export default class RestaurantController {
       res.status(500).json({ error: e });
     }
   }
+
+  static async apiGetRestaurantCuisines(req, res, next) {
+    try {
+      let cuisines = await RestaurantsDAO.getRestaurantCuisines();
+
+      res.json(cuisines);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  }
 }

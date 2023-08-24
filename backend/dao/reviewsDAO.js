@@ -7,7 +7,7 @@ export default class ReviewsDAO {
         return;
       }
 
-      reviews = conn.db(process.env.RESTREVIEWS_NS).collection("reviews");
+      reviews = await conn.db(process.env.RESTREVIEWS_NS).collection("reviews");
     } catch (e) {
       console.log(
         `Unable to establish a collection handle in ReviewsDAO: ${e}`

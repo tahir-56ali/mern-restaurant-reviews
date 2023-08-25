@@ -31,7 +31,7 @@ export default class ReviewsDAO {
       return await reviews.insertOne(reviewDoc);
     } catch (e) {
       console.log(`addReview ${e}`);
-      return { error: e };
+      throw e;
     }
   }
 

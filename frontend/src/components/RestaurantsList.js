@@ -161,7 +161,10 @@ const RestaurantsList = () => {
                   {address}
                 </p>
                 <div className="row">
-                  <Link className="btn btn-primary col-lg-5 mx-1 mb-1">
+                  <Link
+                    className="btn btn-primary col-lg-5 mx-1 mb-1"
+                    to={`/restaurants/${restaurant._id}`}
+                  >
                     View Reviews
                   </Link>
                   <a

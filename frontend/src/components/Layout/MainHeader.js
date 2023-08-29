@@ -4,6 +4,7 @@ import AuthContext from "../../store/AuthContext";
 
 const MainHeader = () => {
   const authCtx = useContext(AuthContext);
+  const { user, logout } = authCtx;
 
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark mb-1">
@@ -31,8 +32,8 @@ const MainHeader = () => {
           </li>
           <li className="nav-item">
             {authCtx.user ? (
-              <Link className="nav-link" onClick={authCtx.logout}>
-                Logout
+              <Link className="nav-link" onClick={logout}>
+                Logout {user.name}
               </Link>
             ) : (
               <Link className="nav-link" to="/login">

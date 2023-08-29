@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 import RestaurantDataService from "../services/RestaurantDataService";
 import Card from "./UI/Card";
+import AuthContext from "../store/AuthContext";
 
 const Restaurant = () => {
+  const authCtx = useContext(AuthContext);
   const initialState = {
     id: null,
     name: "",
@@ -23,13 +26,18 @@ const Restaurant = () => {
     setRestaurant(loadedRestaurant.data);
   };
 
-  const deleteReviewHandler = (reviewId, index) => {
-    setRestaurant((prevReview) => {
-      prevReview.reviews.splice(index, 1);
-      return {
-        ...prevReview,
-      };
-    });
+  const deleteReviewHandler = async (reviewId, index) => {
+    try {
+      await RestaurantDataService.deleteReview(reviewId, authCtx.user.id);
+      setRestaurant((prevReview) => {
+        prevReview.reviews.splice(index, 1);
+        return {
+          ...prevReview,
+        };
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -64,21 +72,23 @@ const Restaurant = () => {
                   <strong>Date: </strong>
                   {review.date}
                 </p>
-                <div className="row">
-                  <Link
-                    className="btn btn-primary col-lg-5 mx-1 mb-1"
-                    onClick={() => deleteReviewHandler(review._id, idx)}
-                  >
-                    Delete
-                  </Link>
-                  <Link
-                    className="btn btn-primary col-lg-5 mx-1 mb-1"
-                    to={`/restaurants/${review.restaurant_id}/review`}
-                    state={{ currentReview: review }}
-                  >
-                    Edit
-                  </Link>
-                </div>
+                {authCtx.user && authCtx.user.id === review.user_id && (
+                  <div className="row">
+                    <Link
+                      className="btn btn-primary col-lg-5 mx-1 mb-1"
+                      onClick={() => deleteReviewHandler(review._id, idx)}
+                    >
+                      Delete
+                    </Link>
+                    <Link
+                      className="btn btn-primary col-lg-5 mx-1 mb-1"
+                      to={`/restaurants/${review.restaurant_id}/review`}
+                      state={{ currentReview: review }}
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                )}
               </Card>
             </div>
           );

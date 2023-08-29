@@ -8,6 +8,7 @@ import RestaurantsList from "./components/RestaurantsList";
 import Restaurant from "./components/Restaurant";
 import Login from "./components/Login";
 import AddReview from "./components/AddReview";
+import AuthProvider from "./store/AuthProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -25,4 +26,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-root.render(<RouterProvider router={router}></RouterProvider>);
+root.render(
+  <AuthProvider>
+    <RouterProvider router={router}></RouterProvider>
+  </AuthProvider>
+);

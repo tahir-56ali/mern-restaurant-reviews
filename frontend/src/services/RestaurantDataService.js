@@ -13,6 +13,11 @@ class RestaurantDataService {
   find(query, by, page = 0) {
     return http.get(`?${by}=${query}&page=${page}`);
   }
+  deleteReview(reviewId, userId) {
+    return http.delete("/review", {
+      data: { review_id: reviewId, user_id: userId },
+    });
+  }
 }
 
 const restaurantDataService = new RestaurantDataService();

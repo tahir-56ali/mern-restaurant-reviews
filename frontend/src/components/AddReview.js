@@ -1,13 +1,15 @@
+import { useContext } from "react";
 import { useLocation } from "react-router-dom";
+import AuthContext from "../store/AuthContext";
 
 const AddReview = () => {
+  const authCtx = useContext(AuthContext);
   let review = "";
   let title = "Create";
   const location = useLocation();
 
-  const user_id = "1234";
   const currentReview = location.state ? location.state.currentReview : null;
-  if (currentReview && currentReview.user_id === user_id) {
+  if (currentReview && currentReview.user_id === authCtx.user.id) {
     title = "Edit";
     review = currentReview.text;
   }

@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../store/AuthContext";
 
 const MainHeader = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark mb-1">
       <Link className="navbar-brand" to="/restaurants">
@@ -26,9 +30,15 @@ const MainHeader = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/login">
-              Login
-            </Link>
+            {authCtx.user ? (
+              <Link className="nav-link" onClick={authCtx.logout}>
+                Logout
+              </Link>
+            ) : (
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
+            )}
           </li>
         </ul>
       </div>

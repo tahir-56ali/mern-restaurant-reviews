@@ -59,6 +59,7 @@ const Restaurant = () => {
       </Link>
       <h4>Reviews</h4>
       <div className="row">
+        {restaurant.reviews.length === 0 && <p>No reviews yet.</p>}
         {restaurant.reviews.map((review, idx) => {
           return (
             <div className="col-lg-4">

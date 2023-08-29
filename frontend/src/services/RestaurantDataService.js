@@ -13,6 +13,12 @@ class RestaurantDataService {
   find(query, by, page = 0) {
     return http.get(`?${by}=${query}&page=${page}`);
   }
+  createReview(data) {
+    return http.post("/review", data);
+  }
+  updateReview(data) {
+    return http.put("/review", data);
+  }
   deleteReview(reviewId, userId) {
     return http.delete("/review", {
       data: { review_id: reviewId, user_id: userId },

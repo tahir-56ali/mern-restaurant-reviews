@@ -8,8 +8,8 @@ export default class ReviewsController {
       const restaurantId = req.body.restaurant_id;
 
       const userInfo = {
-        _id: req.body.user._id,
-        name: req.body.user.name,
+        _id: req.body.user_id,
+        name: req.body.name,
       };
 
       await ReviewsDAO.addReview(review, restaurantId, userInfo, date);

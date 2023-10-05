@@ -30,17 +30,22 @@ const MainHeader = () => {
               Restaurants
             </Link>
           </li>
-          <li className="nav-item">
-            {authCtx.user ? (
+          {authCtx.user ? (
+            <li className="nav-item">
               <Link className="nav-link" onClick={logout}>
                 Logout {user.name}
               </Link>
-            ) : (
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link className="nav-link" to="/register">
+                Register
+              </Link>
               <Link className="nav-link" to="/login">
                 Login
               </Link>
-            )}
-          </li>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

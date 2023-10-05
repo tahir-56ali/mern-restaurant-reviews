@@ -9,6 +9,7 @@ import Restaurant from "./components/Restaurant";
 import Login from "./components/Login";
 import AddReview from "./components/AddReview";
 import AuthProvider from "./store/AuthProvider";
+import Register from "./components/Register";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: "/restaurants", element: <RestaurantsList /> },
       { path: "/restaurants/:id", element: <Restaurant /> },
       { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
       { path: "/restaurants/:id/review", element: <AddReview /> },
     ],
   },

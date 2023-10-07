@@ -32,7 +32,11 @@ const Login = () => {
       })
       .catch(({ response }) => {
         console.log(response);
-        setError(response.data.message || response.data);
+        if (response.data && response.data === "Unauthorized") {
+          setError("Password or username is incorrect");
+        } else {
+          setError(response.data.message || response.data);
+        }
       });
   };
 
@@ -41,8 +45,6 @@ const Login = () => {
       action="http://localhost:5000/api/v1/auth/login"
       onSubmit={loginHandler}
       method="POST"
-      noValidate
-      className="validated-form"
     >
       <div>
         {error}
@@ -52,6 +54,7 @@ const Login = () => {
             type="text"
             className="form-control"
             id="username"
+            required
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -61,6 +64,7 @@ const Login = () => {
             type="password"
             className="form-control"
             id="password"
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

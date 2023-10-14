@@ -1,3 +1,4 @@
+import express from "express";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
 import app from "./server.js";
@@ -11,6 +12,18 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import restaurantRouter from "./api/restaurants.route.js";
 import authRouter from "./api/auth.route.js";
+
+/****  Setup-start: Serving frontend app from frontend/build *****/
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+/****  Setup-end: Serving frontend app from frontend/build *****/
 
 dotenv.config();
 
@@ -55,7 +68,14 @@ passport.deserializeUser(User.deserializeUser());
 // register routes
 app.use("/api/v1/restaurants", restaurantRouter);
 app.use("/api/v1/auth", authRouter);
-app.use("*", (req, res) => res.status(404).json({ error: "Not Found" }));
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back the index.html file. handle all pages including 404
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
+
+//app.use("*", (req, res) => res.status(404).json({ error: "Not Found" }));
 
 const MongoClient = mongodb.MongoClient;
 

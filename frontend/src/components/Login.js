@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import AuthContext from "../store/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import config from "../config";
 
 const Login = () => {
   const authCtx = useContext(AuthContext);
@@ -14,12 +15,11 @@ const Login = () => {
     e.preventDefault();
 
     axios({
-      url: "http://localhost:5000/api/v1/auth/login",
+      url: `${config.API_URL}/auth/login`,
       method: "POST",
       data: { username, password },
     })
       .then((res) => {
-        //window.localStorage.setItem("isAuthenticated", true);
         console.log(res);
         if (res.status === 200) {
           const user = {
@@ -41,11 +41,7 @@ const Login = () => {
   };
 
   return (
-    <form
-      action="http://localhost:5000/api/v1/auth/login"
-      onSubmit={loginHandler}
-      method="POST"
-    >
+    <form onSubmit={loginHandler} method="POST">
       <div>
         {error}
         <div className="form-group">

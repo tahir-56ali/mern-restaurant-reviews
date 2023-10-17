@@ -1,10 +1,29 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/AuthContext";
+import axios from "axios";
+import config from "../../config";
 
 const MainHeader = () => {
   const authCtx = useContext(AuthContext);
-  const { user, logout } = authCtx;
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await axios.get(
+          `${config.API_URL}/auth/current_user`,
+          { withCredentials: true }
+        );
+        if (response.data.user) {
+          authCtx.login(response.data.user);
+        }
+      } catch (error) {
+        console.error("Error checking authentication status:", error);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark mb-1">
@@ -32,8 +51,8 @@ const MainHeader = () => {
           </li>
           {authCtx.user ? (
             <li className="nav-item">
-              <Link className="nav-link" onClick={logout}>
-                Logout {user.name}
+              <Link className="nav-link" onClick={authCtx.logout}>
+                Logout {authCtx.user.name}
               </Link>
             </li>
           ) : (

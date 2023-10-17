@@ -5,7 +5,7 @@ import passport from "../passport/index.js";
 import AuthCtrl from "./auth.controller.js";
 import UserCtrl from "./user.controller.js";
 
-router.get("/", UserCtrl.getCurrentUser);
+router.get("/current_user", UserCtrl.getCurrentUser);
 router.post(
   "/register",
   AuthCtrl.checkAlreadyRegistered,

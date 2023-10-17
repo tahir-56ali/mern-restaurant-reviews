@@ -42,6 +42,8 @@ store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e);
 });
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const sessionConfig = {
   store,
   name: "restaurants",
@@ -49,7 +51,7 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: true,
+    secure: isProduction,
     httpOnly: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,

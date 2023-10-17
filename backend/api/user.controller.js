@@ -1,15 +1,18 @@
 export default class UserController {
   static getCurrentUser(req, res) {
-    console.log("current user: ", req.user);
+    res.set("Cache-Control", "no-store");
     if (req.user) {
-      res.json({ user: req.user });
+      const currentUser = {
+        id: req.user._id,
+        name: req.user.username,
+      };
+      res.json({ user: currentUser });
     } else {
       res.json({ user: null });
     }
   }
 
   static login(req, res) {
-    console.log("comes here 2");
     return res.send(req.user);
   }
 

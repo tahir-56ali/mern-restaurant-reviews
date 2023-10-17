@@ -15,8 +15,12 @@ export default class UserController {
 
   static logout(req, res) {
     if (req.user) {
-      req.logout();
-      res.send({ msg: "logging out" });
+      req.logout((err) => {
+        if (err) {
+          return res.status(500).json({ message: "Logout failed" });
+        }
+        res.status(200).json({ message: "Successfully logged out" });
+      });
     } else {
       res.send({ msg: "no user to log out" });
     }

@@ -1,0 +1,20 @@
+{
+  "name": "mern-restaurant-reviews",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "install-deps": "cd backend && npm install && cd ../frontend && npm install",
+    "build-frontend": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tahir-56ali/mern-restaurant-reviews.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tahir-56ali/mern-restaurant-reviews/issues"
+  },
+  "homepage": "https://github.com/tahir-56ali/mern-restaurant-reviews#readme"
+}

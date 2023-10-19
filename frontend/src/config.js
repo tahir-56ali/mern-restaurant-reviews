@@ -3,7 +3,7 @@ const dev = {
 };
 
 const prod = {
-  API_URL: "https://your-app.cyclic.app/api/v1",
+  API_URL: "https://restaurant-reviews-mern.cyclic.app/api/v1",
 };
 
 const config = process.env.REACT_APP_NODE_ENV === "development" ? dev : prod;

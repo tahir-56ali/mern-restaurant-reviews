@@ -6,6 +6,8 @@ const prod = {
   API_URL: "https://restaurant-reviews-mern.cyclic.app/api/v1",
 };
 
-const config = process.env.REACT_APP_NODE_ENV === "development" ? dev : prod;
+//const config = process.env.REACT_APP_NODE_ENV === "development" ? dev : prod;
+// hard coding for now for cyclic.sh
+const config = prod;
 
 export default config;
